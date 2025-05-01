@@ -1,3 +1,4 @@
+
 /**
  * Copyright (C) 2025 to the present, Crestron Electronics, Inc.
  * All rights reserved.
@@ -11,39 +12,142 @@
 /*jslint es6 */
 /*global serviceModule, CrComLib */
 
+
+
+
 const page1Module = (() => {
     'use strict';
+    
+    
+    function sendDigital1(value) { window.CrComLib.publishEvent('b', '1', value); }
+    function sendDigital2(value) { window.CrComLib.publishEvent('b', '2', value); }
+    function sendDigital3(value) { window.CrComLib.publishEvent('b', '3', value); }
+    
 
-    // BEGIN::CHANGEAREA - your javascript for page module code goes here         
+    // TODO: test with crestron digitals
+    function pulseDigital(sendFunction) {
+        sendFunction(true);
+        setTimeout(() => {
+            sendFunction(false);
+        }, 100);
+        console.log('pulsed');
+    }
+    
 
     /**
      * Initialize Method
      */
+    
     function onInit() {
        serviceModule.addEmulatorScenarioNoControlSystem("./app/project/components/pages/page1/page1-emulator.json");
-       // Uncomment the below line and comment the above to load the emulator all the time.
-       // serviceModule.addEmulatorScenario("./app/project/components/pages/page1/page1-emulator.json");       
+      
     }
+    
 
     /**
      * private method for page class initialization
      */
     let loadedSubId = CrComLib.subscribeState('o', 'ch5-import-htmlsnippet:page1-import-page', (value) => {
         if (value['loaded']) {
+            const d1Id = window.CrComLib.subscribeState('b','1', (value) => {
+                if (value){
+                    document.getElementById('barco-container').classList.add('selected');
+                }
+                else {    
+                    document.getElementById('barco-container').classList.remove('selected');        
+                }       
+            });
+            const d2Id = window.CrComLib.subscribeState('b','2', (value) => {
+ 
+                if (value){       
+                    document.getElementById('nvx-container').classList.add('selected');
+                }
+                else {    
+                    document.getElementById('nvx-container').classList.remove('selected');        
+                }}); 
+               
+
+            const d3Id = window.CrComLib.subscribeState('b','3', (value) => {});
+            const nvxButton = document.getElementById('nvx-button');
+            const barcoButton = document.getElementById('barco-button');
+            const nvxContainer = document.getElementById('nvx-container');
+            const barcoContainer = document.getElementById('barco-container');
+
+            if (barcoContainer) {   
+                barcoContainer.addEventListener('click', () => {
+                    pulseDigital(sendDigital1);
+                    console.log('Barco Container Clicked');
+                });
+            }
+
+            if (nvxContainer) {
+                nvxContainer.addEventListener('click', () => {
+                    pulseDigital(sendDigital2);
+                    console.log('NVX Container Clicked');
+                });
+            }
+
             onInit();
             setTimeout(() => {
                 CrComLib.unsubscribeState('o', 'ch5-import-htmlsnippet:page1-import-page', loadedSubId);
                 loadedSubId = '';
+                window.CrComLib.unsubscribeState('b', '1', d1Id);
+                window.CrComLib.unsubscribeState('b', '2', d2Id);
+                window.CrComLib.unsubscribeState('b', '3', d3Id);
             });
         }
     }); 
+
+
+    //without window.onload
+
+
+    
+    // window.onload = () => { 
+    //     //Method 2 for getting click events
+    //     const nvxButton = document.getElementById('nvx-container');
+    //     const barcoButton = document.getElementById('barco-container');
+    //     if(barcoButton){
+    //         barcoButton.addEventListener('click', () => {
+    //             console.log('Barco Button Clicked');
+                
+    //         });
+    //     }
+
+    //     if(nvxButton){
+    //         nvxButton.addEventListener('click', () => {
+    //             pulseDigital(sendDigital2);
+    //             console.log('NVX Button Clicked');
+                
+    //         });
+    //     }
+        
+    // }
 
     /**
      * All public method and properties are exported here
      */
     return {
+        pulseDigital,   //Expose the pulseDigital function 
+        sendDigital1,   //Expose the sendDigital1 function
+        sendDigital2,   //Expose the sendDigital2 function
+
+
+        // update to be functions and not DOM elements
+        // barcoButton: function() {
+        //     pulseDigital(sendDigital1());
+        //     console.log('Barco Button Clicked');
+        //     alert('Barco Button Clicked');
+        // },
+        // nvxButton: function() {
+        //     pulseDigital(sendDigital2());
+        //     console.log('NVX Button Clicked');
+        //     alert('NVX Button Clicked');
+            
+        // },
+ 
     };
-
-    // END::CHANGEAREA
-
 })();
+window.page1Module = page1Module;
+
+

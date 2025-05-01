@@ -14,7 +14,7 @@ var webXPanelModule = (function () {
     "host": window.location.hostname,
     "port": 49200,
     "roomId": "",
-    "ipId": "0x03",
+    "ipId": "0x05",
     "tokenSource": "",
     "tokenUrl": "",
     "authToken": ""

@@ -33,7 +33,10 @@
   <div id="loader" class="loader"></div>
 
   <% for (var js in htmlWebpackPlugin.files.js) { %>
-  <script src="<%= htmlWebpackPlugin.files.js[js] %>"></script>
+  
+  
+  <script src="<%= htmlWebpackPlugin.files.js[js] %>" defer></script>
+  <!-- <script src="./project/components/pages/page1/page1.js"></script> -->
   <% } %>
 </body>
 
