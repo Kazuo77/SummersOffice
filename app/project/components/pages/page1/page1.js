@@ -19,19 +19,19 @@ const page1Module = (() => {
     'use strict';
     
     
-    function sendDigital1(value) { window.CrComLib.publishEvent('b', '1', value); }
-    function sendDigital2(value) { window.CrComLib.publishEvent('b', '2', value); }
-    function sendDigital3(value) { window.CrComLib.publishEvent('b', '3', value); }
+    // function sendDigital1(value) { window.CrComLib.publishEvent('b', '1', value); }
+    // function sendDigital2(value) { window.CrComLib.publishEvent('b', '2', value); }
+    // function sendDigital3(value) { window.CrComLib.publishEvent('b', '3', value); }
     
 
-    // TODO: test with crestron digitals
-    function pulseDigital(sendFunction) {
-        sendFunction(true);
-        setTimeout(() => {
-            sendFunction(false);
-        }, 100);
-        console.log('pulsed');
-    }
+    // // TODO: test with crestron digitals
+    // function pulseDigital(sendFunction) {
+    //     sendFunction(true);
+    //     setTimeout(() => {
+    //         sendFunction(false);
+    //     }, 100);
+    //     console.log('pulsed');
+    // }
     
 
     /**
@@ -39,35 +39,47 @@ const page1Module = (() => {
      */
     
     function onInit() {
-       serviceModule.addEmulatorScenarioNoControlSystem("./app/project/components/pages/page1/page1-emulator.json");
+    //    serviceModule.addEmulatorScenarioNoControlSystem("./app/project/components/pages/page1/page1-emulator.json");
       
     }
-    
 
     /**
      * private method for page class initialization
      */
     let loadedSubId = CrComLib.subscribeState('o', 'ch5-import-htmlsnippet:page1-import-page', (value) => {
         if (value['loaded']) {
-            const d1Id = window.CrComLib.subscribeState('b','1', (value) => {
+
+
+            const d1Id = document.getElementById('barco-container');
+            window.CrComLib.subscribeState('b','1', (value) => {
                 if (value){
-                    document.getElementById('barco-container').classList.add('selected');
+                    d1Id.classList.add('icon-container-selected');
                 }
                 else {    
-                    document.getElementById('barco-container').classList.remove('selected');        
+                    d1Id.classList.remove('icon-container-selected');        
                 }       
             });
-            const d2Id = window.CrComLib.subscribeState('b','2', (value) => {
- 
-                if (value){       
-                    document.getElementById('nvx-container').classList.add('selected');
+            const d2Id = document.getElementById('nvx-container');
+            window.CrComLib.subscribeState('b','2', (value) => {
+                if (value){
+                    d2Id.classList.add('icon-container-selected');
                 }
                 else {    
-                    document.getElementById('nvx-container').classList.remove('selected');        
-                }}); 
-               
+                    d2Id.classList.remove('icon-container-selected');        
+                }       
+            });
 
-            const d3Id = window.CrComLib.subscribeState('b','3', (value) => {});
+               
+            
+            const d8Id = window.CrComLib.subscribeState('b','8', (value) => {});
+            const d9Id = window.CrComLib.subscribeState('b','9', (value) => {});
+            const d10Id = window.CrComLib.subscribeState('b','10', (value) => {});
+            const d20Id = window.CrComLib.subscribeState('b','20', (value) => {});
+            const d21Id = window.CrComLib.subscribeState('b','21', (value) => {});            
+            const d22Id = window.CrComLib.subscribeState('b','22', (value) => {});
+            const d23Id = window.CrComLib.subscribeState('b','23', (value) => {});
+            const d24Id = window.CrComLib.subscribeState('b','24', (value) => {});
+
             const nvxButton = document.getElementById('nvx-button');
             const barcoButton = document.getElementById('barco-button');
             const nvxContainer = document.getElementById('nvx-container');
@@ -93,7 +105,15 @@ const page1Module = (() => {
                 loadedSubId = '';
                 window.CrComLib.unsubscribeState('b', '1', d1Id);
                 window.CrComLib.unsubscribeState('b', '2', d2Id);
-                window.CrComLib.unsubscribeState('b', '3', d3Id);
+                // window.CrComLib.unsubscribeState('b', '3', d3Id);
+                window.CrComLib.unsubscribeState('b', '8', d8Id);
+                window.CrComLib.unsubscribeState('b', '9', d9Id);
+                window.CrComLib.unsubscribeState('b', '10', d10Id);
+                window.CrComLib.unsubscribeState('b', '20', d11Id);
+                window.CrComLib.unsubscribeState('b', '21', d12Id);
+                window.CrComLib.unsubscribeState('b', '22', d13Id);
+                window.CrComLib.unsubscribeState('b', '23', d14Id);
+                window.CrComLib.unsubscribeState('b', '24', d15Id);
             });
         }
     }); 

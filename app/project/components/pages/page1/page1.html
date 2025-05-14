@@ -8,7 +8,7 @@
             <div id='barco-container'class="icon-container" onclick="click">
                 <div class="icon">
                     <!-- <ch5-image url="app\project\assets\img\BarcoIcon.png" recievestatesendEventonClick="1"></ch5-image> -->
-                    <img id="barco-button" src="app\project\assets\img\BarcoIcon.png" >
+                    <img id="barco-button" src="app\project\assets\img\BarcoIcon.png">
                     <!-- <ch5-button sendEventOnClick="barco.clicked" backgroundimageurl="app\project\assets\img\BarcoIcon.png" sendEventOnClick="1"></ch5-button> -->
                     
                     <!-- <button id='BarcoButton' class="invisible-button" onclick="pulseDigital(sendDigital1,100)"></button> -->
@@ -27,11 +27,30 @@
                     <label class="centered-icon-label" style="position:relative; bottom: 19px;"> NVX Source </label>
                 </div>    
             </div>
-
         </div>
+    </div>
+    <div id="bottom-card" class="card">
+        <div class="bottom-controls" >
+            <div class="display-controls">
+                <ch5-button id="display-on" label="On" recievestateselected="20" sendeventonclick="20" iconClass="material-icons md-tv" size="large"></ch5-button>
+                <ch5-button id="display-off" label="Off" recievestateselected="21" sendeventonclick="21" iconClass="material-icons md-tv_off" size="large"></ch5-button>
+                <!-- <p class="online-text">Online</p> -->
+            </div>
+            <div class="volume-container">
+                <div class="volume-icon">
+                    <ch5-button id="volume-down" recievestateselected="8" sendeventonclick="8" iconClass="material-icons md-volume_down" size="large" ></ch5-button>
+                </div>
+                <div class="volume-icon">
+                    <ch5-button id="volume-up" recievedstateselected="9" sendeventonclick="9" iconClass="material-icons md-volume_up" size="large"></ch5-button>
+                </div>
+                <div class="volume-icon">
+                    <ch5-button id="mute" recievedstateselected="10" sendeventonclick="10" iconClass="material-icons md-volume_off" size="large" font="20"></ch5-button>
+                </div>
+            </div>
+        </div>
+        
     </div>
      <!-- END::CHANGEAREA -->
 </section>
 <!-- <script type="module" src="./page1.js"></script> -->
-
-
+ 
