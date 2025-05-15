@@ -48,6 +48,29 @@ const page1Module = (() => {
      */
     let loadedSubId = CrComLib.subscribeState('o', 'ch5-import-htmlsnippet:page1-import-page', (value) => {
         if (value['loaded']) {
+        ;
+        // NOTE: second parameter to CrComLib.publishEvent() is always a string 
+        
+            const barcoPress = document.getElementById('barco-button'); 
+            function barcoClick(ev){ 
+            // when clicked send a join pulse 
+            // console.log(`toggle(${id})clicked`); 
+                CrComLib.publishEvent('b','1',true); 
+                CrComLib.publishEvent('b','1',false)
+            }
+
+            barcoPress.addEventListener('click',barcoClick); 
+
+            const nvxPress = document.getElementById('nvx-container'); 
+            function nvxClick(ev){ 
+            // when clicked send a join pulse 
+            // console.log(`toggle(${id})clicked`); 
+                CrComLib.publishEvent('b','2',true); 
+                CrComLib.publishEvent('b','2',false)
+            }
+            nvxPress.addEventListener('click',nvxClick); 
+
+
 
 
             const d1Id = document.getElementById('barco-container');
